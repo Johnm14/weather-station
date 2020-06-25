@@ -6,7 +6,9 @@ import datetime
 import csv
 
 ser = serial.Serial('COM4', baudrate = 9600, timeout=1)
-    
+
+firstTime = True    
+
 while True:
     try:
         arduinoData = ser.readline()
@@ -27,6 +29,12 @@ while True:
             with open("%s_%s.csv" % (currentTime.month, currentTime.day), "a", newline='') as csvfile:
                 writer = csv.writer(csvfile, delimiter=",")
                 
+                if firstTime == True:
+                    writer.writerow(["Time HH:MM:SS", "Humidity %", "Temperature_h F",
+                                     "Pressure Pa", "Temperature_p F",
+                                     "Light V", "Battery V"])
+                    firstTime = False
+                    
                 writer.writerow(["%s:%s:%s" % (currentTime.hour, currentTime.minute,
                                                   currentTime.second), dataArray[0], dataArray[1],
                                                   dataArray[2], dataArray[3],
