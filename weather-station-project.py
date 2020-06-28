@@ -5,6 +5,8 @@ import numpy as np
 import datetime
 import csv
 
+fileName = input("Enter a name for the file to be created and press Enter: ")
+
 ser = serial.Serial('COM4', baudrate = 9600, timeout=1)
 
 firstTime = True    
@@ -26,7 +28,7 @@ while True:
             print(dataArray)
             print("%s:%s:%s" % (currentTime.hour, currentTime.minute, currentTime.second))
             
-            with open("%s_%s.csv" % (currentTime.month, currentTime.day), "a", newline='') as csvfile:
+            with open("%s.csv" % (fileName), "a", newline='') as csvfile:
                 writer = csv.writer(csvfile, delimiter=",")
                 
                 if firstTime == True:
